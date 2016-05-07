@@ -4,7 +4,6 @@ import random
 from PIL import Image
 from wordcloud import WordCloud, STOPWORDS
 
-
 def grey_color_func(word, font_size, position, orientation, random_state=None, **kwargs):
     return "hsl(0, 0%%, %d%%)" % random.randint(10, 50)
 
@@ -16,10 +15,10 @@ icon = "line-chart"
 
 words_array = []
 with open(csv_path, 'rb') as csvfile:
-		 reader = csv.DictReader(csvfile)
-		 for row in reader:
-		 	if row['word'] not in STOPWORDS:
-		 		words_array.append((row['word'].upper(), float(row['num_words'])))
+	reader = csv.DictReader(csvfile)
+		for row in reader:
+			if row['word'] not in STOPWORDS:
+				words_array.append((row['word'].upper(), float(row['num_words'])))
 
 # http://stackoverflow.com/questions/7911451/pil-convert-png-or-gif-with-transparency-to-jpg-without
 icon_path = fa_path + "%s.png" % icon

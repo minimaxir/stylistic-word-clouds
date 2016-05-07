@@ -42,27 +42,26 @@ for y in range(imgsize[1]):
     		mask.putpixel((x, y), (r, g, b))
 			
 # create coloring from image
-mask.save('test2.jpg')
 image_colors = ImageColorGenerator(np.array(mask))
 
 pattern = re.compile("[^\w']")
 tokens_dict = {}
 
 with open(csv_path, 'rb') as csvfile:
-		 reader = csv.DictReader(csvfile)
-		 for row in reader:
-			text = row['link_name'].lower()
-			reactions = int(row['num_reactions'])
-			
-			# Map each reactions count to a word,
-			# e.g.: {'futurist': [6599], 'ditch': [4667, 936, 298]}
-			
-			tokens = pattern.sub(' ', text).split()
-			for token in tokens:
-				if token not in tokens_dict.keys():
-					tokens_dict[token] = [reactions]
-				else:
-					tokens_dict[token].append(reactions)
+	reader = csv.DictReader(csvfile)
+	for row in reader:
+		text = row['link_name'].lower()
+		reactions = int(row['num_reactions'])
+
+		# Map each reactions count to a word,
+		# e.g.: {'futurist': [6599], 'ditch': [4667, 936, 298]}
+
+		tokens = pattern.sub(' ', text).split()
+		for token in tokens:
+			if token not in tokens_dict.keys():
+				tokens_dict[token] = [reactions]
+			else:
+				tokens_dict[token].append(reactions)
 			
 # Calculate the average amount of reactions for headlines containing word
 words_dict = [(k, np.mean(np.array(v))) for k, v in tokens_dict.items() if len(v) >= 20]

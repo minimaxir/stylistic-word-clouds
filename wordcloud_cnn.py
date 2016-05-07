@@ -5,7 +5,6 @@ from PIL import Image
 from wordcloud import WordCloud, STOPWORDS
 from palettable.colorbrewer.qualitative import Dark2_8
 
-
 def color_func(word, font_size, position, orientation, random_state=None, **kwargs):
     return tuple(Dark2_8.colors[random.randint(0,7)])
 
@@ -17,9 +16,9 @@ icon = "flag"
 
 message = ''
 with open(csv_path, 'rb') as csvfile:
-		 reader = csv.DictReader(csvfile)
-		 for row in reader:
-		 		message += " " + row['link_name']
+	reader = csv.DictReader(csvfile)
+	for row in reader:
+		message += " " + row['link_name']
 		 		
 # http://stackoverflow.com/questions/7911451/pil-convert-png-or-gif-with-transparency-to-jpg-without
 icon_path = fa_path + "%s.png" % icon
